@@ -4,41 +4,26 @@
 // if that character appears more than once in the original string. Ignore capitalization when determining if a character is a duplicate.
 
 // BUG
-// const str1 = 'din';
-// const str2 = 'recede'; //"()()()"
-const str3 = 'Success'; //")())())"
-
-// function encoder(string) {
-//   let counter = 1;
-//   let newString = '';
-//   let condition = false;
-
-//   for (let i = 0; i < string.length; i++) {
-//     for (let j = i === 0 ? 1 : i + 1; j < string.length; j++) {
-//       if (string[i] === string[j]) {
-//         condition = true;
-//         break;
-//       } else {
-//         condition = false;
-//       }
-//     }
-//     if (condition === true) {
-//       newString += ')';
-//     } else {
-//       newString += '(';
-//     }
-//   }
-//   return newString;
-// }
 
 function encoder(string) {
-  let newString = '';
+  const letterObject = {};
+  const lowerString = string.toLowerCase();
+  newString = '';
 
-  let objectContainer = {};
-  for (let char of string.toLocaleLowerCase()) {
-    objectContainer[char] = (objectContainer[char] || 0) + 1;
+  // Count occurrences of each character
+  for (const letter of lowerString) {
+    letterObject[letter] = (letterObject[letter] || 0) + 1;
   }
-  console.log(objectContainer);
+
+  for (const elemet of lowerString) {
+    console.log(letterObject[elemet]);
+
+    newString += letterObject[elemet] > 1 ? ')' : '(';
+  }
+
+  return newString;
 }
 
-encoder(str3);
+encoder('aldinn'); // "((("
+console.log(encoder('recede')); // "()()()"
+console.log(encoder('success')); // ")())())"
